@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<package version="2.0" xmlns="http://pear.php.net/dtd/package-2.0"
+    xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+                        http://pear.php.net/dtd/tasks-1.0.xsd
+                        http://pear.php.net/dtd/package-2.0
+                        http://pear.php.net/dtd/package-2.0.xsd">
+    <name>Services_oEmbed</name>
+    <channel>pear.php.net</channel>
+    <summary>A package for consuming oEmbed</summary>
+    <description>oEmbed (http://www.oembed.com) is an open specification for discovering more information about URI's. oEmbed services return structure meta-data about a URI (e.g. type of object, title, author information, thumbnail details, etc.).</description>
+    <lead>
+        <name>Joe Stump</name>
+        <user>jstump</user>
+        <email>joe@joestump.net</email>
+        <active>yes</active>
+    </lead>
+    <date>2008-09-25</date>
+    <version>
+        <release>0.0.1</release>
+        <api>0.0.1</api>
+    </version>
+    <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+    </stability>
+    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+    <notes>
+        * Initial release
+    </notes>
+    <contents>
+        <dir name="/">
+            <dir name="Services">
+                <file name="oEmbed.php" role="php" />
+                <dir name="oEmbed">
+                    <file name="Exception.php" role="php" />
+                    <file name="Object.php" role="php" />
+                    <dir name="Exception">
+                        <file name="NoSupport.php" role="php" />
+                    </dir>
+                    <dir name="Object">
+                        <file name="Common.php" role="php" />
+                        <file name="Exception.php" role="php" />
+                        <file name="Link.php" role="php" />
+                        <file name="Photo.php" role="php" />
+                        <file name="Rich.php" role="php" />
+                        <file name="Video.php" role="php" />
+                    </dir>
+                </dir>
+            </dir>
+            <dir name="tests">
+                <file name="AllTests.php" role="test" />
+                <dir name="Services">
+                    <file name="oEmbedTest.php" role="test" />
+                </dir>
+            </dir>
+        </dir>
+    </contents>
+    <dependencies>
+        <required>
+            <php>
+                <min>5.2</min>
+            </php>
+            <pearinstaller>
+                <min>1.4.0b1</min>
+            </pearinstaller>
+            <package>
+                <name>HTTP_Request</name>
+                <channel>pear.php.net</channel>
+                <min>1.4.3</min>
+            </package>
+        </required>
+    </dependencies>
+    <phprelease/>
+    <changelog>
+    </changelog>
+</package>
