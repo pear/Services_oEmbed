@@ -43,6 +43,8 @@
  * @link      http://oembed.com
  */
 
+require_once 'PEAR/Exception.php';
+
 /**
  * Base exception class for {@link Services_oEmbed}
  * 
@@ -55,7 +57,7 @@
  * @link      http://code.google.com/p/digg
  * @link      http://oembed.com
  */
-class Services_oEmbed_Exception extends Exception
+class Services_oEmbed_Exception extends PEAR_Exception
 {
 
 }
