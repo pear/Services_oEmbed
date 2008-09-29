@@ -158,7 +158,10 @@ class Services_oEmbedTest extends PHPUnit_Framework_TestCase
      */
     protected function getObject(array $test)
     {
-        $oEmbed = new Services_oEmbed($test['url'], $test['api']);
+        $oEmbed = new Services_oEmbed($test['url'], array(
+            Services_oEmbed::OPTION_API => $test['api']
+        ));
+
         return $oEmbed->getObject();
     }
 }

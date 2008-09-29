@@ -64,9 +64,9 @@ require_once 'Services/oEmbed/Object.php';
  * // The oEmbed API URI. Not all providers support discovery yet so we're
  * // explicitly providing one here. If one is not provided Services_oEmbed
  * // attempts to discover it. If none is found an exception is thrown.
- * $api = 'http://www.flickr.com/services/oembed/';
- *
- * $oEmbed = new Services_oEmbed($url, $api);
+ * $oEmbed = new Services_oEmbed($url, array(
+ *     Services_oEmbed::OPTION_API => 'http://www.flickr.com/services/oembed/'
+ * ));
  * $object = $oEmbed->getObject();
  *
  * // All of the objects have somewhat sane __toString() methods that allow
@@ -88,6 +88,49 @@ require_once 'Services/oEmbed/Object.php';
 class Services_oEmbed
 {
     /**
+     * HTTP timeout in seconds
+     * 
+     * All HTTP requests made by Services_oEmbed will respect this timeout. 
+     * This can be passed to {@link Services_oEmbed::setOption()} or to the
+     * options parameter in {@link Services_oEmbed::__construct()}.
+     * 
+     * @var string OPTION_TIMEOUT Timeout in seconds 
+     */
+    const OPTION_TIMEOUT = 'http_timeout';
+
+    /**
+     * HTTP User-Agent 
+     *
+     * All HTTP requests made by Services_oEmbed will be sent with the 
+     * string set by this option.
+     *
+     * @var string OPTION_USER_AGENT The HTTP User-Agent string
+     */
+    const OPTION_USER_AGENT = 'http_user_agent';
+
+    /**
+     * The API's URI
+     *
+     * If the API is known ahead of time this option can be used to explicitly
+     * set it. If not present then the API is attempted to be discovered 
+     * through the auto-discovery mechanism.
+     *
+     * @var string OPTION_API
+     */
+    const OPTION_API = 'oembed_api';
+
+    /**
+     * Options for oEmbed requests
+     *
+     * @var array $options The options for making requests
+     */
+    protected $options = array(
+        self::OPTION_TIMEOUT    => 3,
+        self::OPTION_API        => null,
+        self::OPTION_USER_AGENT => 'Services_oEmbed @package-version@'
+    );
+
+    /**
      * URL of object to get embed information for
      *
      * @var object $url {@link Net_URL2} instance of URL of object
@@ -95,23 +138,16 @@ class Services_oEmbed
     protected $url = null;
 
     /**
-     * oEmbed API endpoint
-     *
-     * @var string $api API URI 
-     */
-    protected $api = null;
-
-    /**
      * Constructor
      *
-     * @param string $url The URL to fetch an oEmbed for
-     * @param string $api The oEmbed API URL for the $url provided
+     * @param string $url     The URL to fetch an oEmbed for
+     * @param array  $options A list of options for the oEmbed lookup
      *
      * @throws {@link Services_oEmbed_Exception} if the $url is invalid
      * @throws {@link Services_oEmbed_Exception} when no valid API is found
      * @return void
      */
-    public function __construct($url, $api = null)
+    public function __construct($url, array $options = array())
     {
         if (Validate::uri($url)) {
             $this->url = new Net_URL2($url);
@@ -119,15 +155,66 @@ class Services_oEmbed
             throw new Services_oEmbed_Exception('URL is invalid');
         }
 
-        if ($api === null) {
-            $this->api = $this->discover();
-        } elseif ($api !== null && Validate::uri($api)) {
-            $this->api = $api;
-        } else {
-            throw new Services_oEmbed_Exception_NoSupport(
-                'No valid API found/provided'
+        if (count($options)) {
+            foreach ($options as $key => $val) {
+                $this->setOption($key, $val);
+            }
+        }
+
+        if ($this->options[self::OPTION_API] === null) {
+            $this->options[self::OPTION_API] = $this->discover();
+        } 
+    }
+
+    /**
+     * Set an option for the oEmbed request
+     * 
+     * @param mixed $option The option name
+     * @param mixed $value  The option value
+     *
+     * @see Services_oEmbed::OPTION_API, Services_oEmbed::OPTION_TIMEOUT
+     * @throws {@link Services_oEmbed_Exception} on invalid option
+     * @access public
+     * @return void
+     */
+    public function setOption($option, $value)
+    {
+        switch ($option) {
+        case self::OPTION_API:
+        case self::OPTION_TIMEOUT:
+            break;
+        default:
+            throw new Services_oEmbed_Exception(
+                'Invalid option "' . $option . '"'
             );
         }
+
+        $func = '_set_' . $option;
+        if (method_exists($this, $func)) {
+            $this->options[$option] = $this->$func($value);
+        } else {
+            $this->options[$option] = $value;
+        }
+    }
+
+    /**
+     * Set the API option
+     * 
+     * @param string $value The API's URI
+     *
+     * @throws {@link Services_oEmbed_Exception} on invalid API URI
+     * @see Validate::uri()
+     * @return string
+     */
+    protected function _set_oembed_api($value)
+    {
+        if (!Validate::uri($value)) {
+            throw new Services_oEmbed_Exception(
+                'API URI provided is invalid'
+            );
+        }
+
+        return $value;
     }
 
     /**
@@ -152,13 +239,13 @@ class Services_oEmbed
             $sets[] = $var . '=' . urlencode($val);
         }
 
-        $url = $this->api . '?' . implode('&', $sets);
+        $url = $this->options[self::OPTION_API] . '?' . implode('&', $sets);
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->options[self::OPTION_TIMEOUT]);
         $result = curl_exec($ch);
 
         if (curl_errno($ch)) {
@@ -211,21 +298,7 @@ class Services_oEmbed
      */
     protected function discover($url)
     {
-        $req = new HTTP_Request($url, array(
-            'method' => 'GET',
-            'timeout' => 2,
-            'maxRedirects' => 100,
-            'readTimeout' => 5
-        ));
-
-        $req->addHeader('User-Agent', 'Services_oEmbed @package-version@');
-
-        $check = $req->sendRequest();
-        if (PEAR::isError($check)) {
-            throw new Services_oEmbed_Exception($check->getMessage());
-        }
-
-        $body = $req->getResponseBody();
+        $body = $this->sendRequest($url);
 
         // Find all <link /> tags that have a valid oembed type set. We then
         // extract the href attribute for each type.
@@ -247,6 +320,37 @@ class Services_oEmbed
         } 
 
         return (isset($ret['json']) ? $ret['json'] : array_pop($ret));
+    }
+
+    /**
+     * Send a GET request to the provider
+     * 
+     * @param mixed $url The URL to send the request to
+     *
+     * @throws {@link Services_oEmbed_Exception} on HTTP errors
+     * @return string The contents of the response
+     */
+    private function sendRequest($url)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->options[self::OPTION_TIMEOUT]);
+        curl_setopt($ch, CURLOPT_USERAGENT, $this->options[self::OPTION_USER_AGENT]);
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            throw new Services_oEmbed_Exception(
+                curl_error($ch), curl_errno($ch)
+            );
+        }
+
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        if (substr($code, 0, 1) != '2') {
+            throw new Services_oEmbed_Exception('Non-200 code returned');
+        }
+
+        return $result;
     }
 }
 

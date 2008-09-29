@@ -16,10 +16,10 @@
         <email>joe@joestump.net</email>
         <active>yes</active>
     </lead>
-    <date>2008-09-25</date>
+    <date>2008-09-29</date>
     <version>
-        <release>0.0.1</release>
-        <api>0.0.1</api>
+        <release>0.0.2</release>
+        <api>0.0.2</api>
     </version>
     <stability>
         <release>alpha</release>
@@ -27,32 +27,120 @@
     </stability>
     <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
     <notes>
-        * Initial release
+        * Removed requirement for HTTP_Request in favor of curl
+        * Added Services_oEmbed::setOption() for setting variable options
+        * Moved $api parameter into $options
+        * Allow User-Agent to be set for HTTP requests
+        * Allow a timeout to be set for HTTP requests
     </notes>
     <contents>
         <dir name="/">
             <dir name="Services">
-                <file name="oEmbed.php" role="php" />
+                <file name="oEmbed.php" role="php">
+                    <tasks:replace type="package-info" 
+                                   from="@package-name@" 
+                                   to="name"/>
+                    <tasks:replace type="package-info" 
+                                   from="@package-version@" 
+                                   to="version"/>
+                </file>
                 <dir name="oEmbed">
-                    <file name="Exception.php" role="php" />
-                    <file name="Object.php" role="php" />
+                    <file name="Exception.php" role="php">
+                        <tasks:replace type="package-info" 
+                                       from="@package-name@" 
+                                       to="name" />
+                        <tasks:replace type="package-info" 
+                                       from="@package-version@" 
+                                       to="version" />
+                    </file>
+                    <file name="Object.php" role="php">
+                        <tasks:replace type="package-info" 
+                                       from="@package-name@" 
+                                       to="name" />
+                        <tasks:replace type="package-info" 
+                                       from="@package-version@" 
+                                       to="version" />
+                    </file>
                     <dir name="Exception">
-                        <file name="NoSupport.php" role="php" />
+                        <file name="NoSupport.php" role="php">
+                            <tasks:replace type="package-info" 
+                                           from="@package-name@" 
+                                           to="name" />
+                            <tasks:replace type="package-info" 
+                                           from="@package-version@" 
+                                           to="version" />
+                        </file>
                     </dir>
                     <dir name="Object">
-                        <file name="Common.php" role="php" />
-                        <file name="Exception.php" role="php" />
-                        <file name="Link.php" role="php" />
-                        <file name="Photo.php" role="php" />
-                        <file name="Rich.php" role="php" />
-                        <file name="Video.php" role="php" />
+                        <file name="Common.php" role="php">
+                            <tasks:replace type="package-info" 
+                                           from="@package-name@" 
+                                           to="name" />
+                            <tasks:replace type="package-info" 
+                                           from="@package-version@" 
+                                           to="version" />
+                        </file>
+                        <file name="Exception.php" role="php">
+                            <tasks:replace type="package-info" 
+                                           from="@package-name@" 
+                                           to="name" />
+                            <tasks:replace type="package-info" 
+                                           from="@package-version@" 
+                                           to="version" />
+                        </file>
+                        <file name="Link.php" role="php">
+                            <tasks:replace type="package-info" 
+                                           from="@package-name@" 
+                                           to="name" />
+                            <tasks:replace type="package-info" 
+                                           from="@package-version@" 
+                                           to="version" />
+                        </file>
+                        <file name="Photo.php" role="php">
+                            <tasks:replace type="package-info" 
+                                           from="@package-name@" 
+                                           to="name" />
+                            <tasks:replace type="package-info" 
+                                           from="@package-version@" 
+                                           to="version" />
+                        </file>
+                        <file name="Rich.php" role="php">
+                            <tasks:replace type="package-info" 
+                                           from="@package-name@" 
+                                           to="name" />
+                            <tasks:replace type="package-info" 
+                                           from="@package-version@" 
+                                           to="version" />
+                        </file>
+                        <file name="Video.php" role="php">
+                            <tasks:replace type="package-info" 
+                                           from="@package-name@" 
+                                           to="name" />
+                            <tasks:replace type="package-info" 
+                                           from="@package-version@" 
+                                           to="version" />
+                        </file>
                     </dir>
                 </dir>
             </dir>
             <dir name="tests">
-                <file name="AllTests.php" role="test" />
+                <file name="AllTests.php" role="test">
+                    <tasks:replace type="package-info" 
+                                   from="@package-name@" 
+                                   to="name" />
+                    <tasks:replace type="package-info" 
+                                   from="@package-version@" 
+                                   to="version" />
+                </file>
                 <dir name="Services">
-                    <file name="oEmbedTest.php" role="test" />
+                    <file name="oEmbedTest.php" role="test">
+                        <tasks:replace type="package-info" 
+                                       from="@package-name@" 
+                                       to="name" />
+                        <tasks:replace type="package-info" 
+                                       from="@package-version@" 
+                                       to="version" />
+                    </file>
                 </dir>
             </dir>
         </dir>
@@ -70,9 +158,146 @@
                 <channel>pear.php.net</channel>
                 <min>1.4.3</min>
             </package>
+            <package>
+                <name>Validate</name>
+                <channel>pear.php.net</channel>
+                <min>0.8.1</min>
+            </package>
+            <package>
+                <name>Net_URL2</name>
+                <channel>pear.php.net</channel>
+                <min>0.2.0</min>
+            </package>
         </required>
     </dependencies>
     <phprelease/>
     <changelog>
+        <release>
+            <date>2008-09-25</date>
+            <version>
+                <release>0.0.1</release>
+                <api>0.0.1</api>
+            </version>
+            <stability>
+                <release>alpha</release>
+                <api>alpha</api>
+            </stability>
+            <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+            <notes>
+                * Initial release
+            </notes>
+            <contents>
+                <dir name="/">
+                    <dir name="Services">
+                        <file name="oEmbed.php" role="php">
+                            <tasks:replace type="package-info" 
+                                           from="@package-name@" 
+                                           to="name"/>
+                            <tasks:replace type="package-info" 
+                                           from="@package-version@" 
+                                           to="version"/>
+                        </file>
+                        <dir name="oEmbed">
+                            <file name="Exception.php" role="php">
+                                <tasks:replace type="package-info" 
+                                               from="@package-name@" 
+                                               to="name" />
+                                <tasks:replace type="package-info" 
+                                               from="@package-version@" 
+                                               to="version" />
+                            </file>
+                            <file name="Object.php" role="php">
+                                <tasks:replace type="package-info" 
+                                               from="@package-name@" 
+                                               to="name" />
+                                <tasks:replace type="package-info" 
+                                               from="@package-version@" 
+                                               to="version" />
+                            </file>
+                            <dir name="Exception">
+                                <file name="NoSupport.php" role="php">
+                                    <tasks:replace type="package-info" 
+                                                   from="@package-name@" 
+                                                   to="name" />
+                                    <tasks:replace type="package-info" 
+                                                   from="@package-version@" 
+                                                   to="version" />
+                                </file>
+                            </dir>
+                            <dir name="Object">
+                                <file name="Common.php" role="php">
+                                    <tasks:replace type="package-info" 
+                                                   from="@package-name@" 
+                                                   to="name" />
+                                    <tasks:replace type="package-info" 
+                                                   from="@package-version@" 
+                                                   to="version" />
+                                </file>
+                                <file name="Exception.php" role="php">
+                                    <tasks:replace type="package-info" 
+                                                   from="@package-name@" 
+                                                   to="name" />
+                                    <tasks:replace type="package-info" 
+                                                   from="@package-version@" 
+                                                   to="version" />
+                                </file>
+                                <file name="Link.php" role="php">
+                                    <tasks:replace type="package-info" 
+                                                   from="@package-name@" 
+                                                   to="name" />
+                                    <tasks:replace type="package-info" 
+                                                   from="@package-version@" 
+                                                   to="version" />
+                                </file>
+                                <file name="Photo.php" role="php">
+                                    <tasks:replace type="package-info" 
+                                                   from="@package-name@" 
+                                                   to="name" />
+                                    <tasks:replace type="package-info" 
+                                                   from="@package-version@" 
+                                                   to="version" />
+                                </file>
+                                <file name="Rich.php" role="php">
+                                    <tasks:replace type="package-info" 
+                                                   from="@package-name@" 
+                                                   to="name" />
+                                    <tasks:replace type="package-info" 
+                                                   from="@package-version@" 
+                                                   to="version" />
+                                </file>
+                                <file name="Video.php" role="php">
+                                    <tasks:replace type="package-info" 
+                                                   from="@package-name@" 
+                                                   to="name" />
+                                    <tasks:replace type="package-info" 
+                                                   from="@package-version@" 
+                                                   to="version" />
+                                </file>
+                            </dir>
+                        </dir>
+                    </dir>
+                    <dir name="tests">
+                        <file name="AllTests.php" role="test">
+                            <tasks:replace type="package-info" 
+                                           from="@package-name@" 
+                                           to="name" />
+                            <tasks:replace type="package-info" 
+                                           from="@package-version@" 
+                                           to="version" />
+                        </file>
+                        <dir name="Services">
+                            <file name="oEmbedTest.php" role="test">
+                                <tasks:replace type="package-info" 
+                                               from="@package-name@" 
+                                               to="name" />
+                                <tasks:replace type="package-info" 
+                                               from="@package-version@" 
+                                               to="version" />
+                            </file>
+                        </dir>
+                    </dir>
+                </dir>
+            </contents>
+        </release>
     </changelog>
 </package>
