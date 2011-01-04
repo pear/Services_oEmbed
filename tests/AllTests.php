@@ -52,7 +52,7 @@ $paths = array(
 
 set_include_path(implode(':', $paths) . ':' . $path);
 
-require_once 'PHPUnit/Framework.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'Services/oEmbedTest.php';
 
 /**

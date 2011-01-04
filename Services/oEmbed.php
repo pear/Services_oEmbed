@@ -45,7 +45,6 @@
 
 require_once 'Validate.php';
 require_once 'Net/URL2.php';
-require_once 'HTTP/Request.php';
 require_once 'Services/oEmbed/Exception.php';
 require_once 'Services/oEmbed/Exception/NoSupport.php';
 require_once 'Services/oEmbed/Object.php';
@@ -149,7 +148,8 @@ class Services_oEmbed
      */
     public function __construct($url, array $options = array())
     {
-        if (Validate::uri($url)) {
+        $validate = new Validate();
+        if ($validate->uri($url)) {
             $this->url = new Net_URL2($url);
         } else {
             throw new Services_oEmbed_Exception('URL is invalid');
@@ -208,7 +208,8 @@ class Services_oEmbed
      */
     protected function _set_oembed_api($value)
     {
-        if (!Validate::uri($value)) {
+        $validate = new Validate();
+        if (!$validate->uri($value)) {
             throw new Services_oEmbed_Exception(
                 'API URI provided is invalid'
             );
