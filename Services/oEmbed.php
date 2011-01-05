@@ -162,7 +162,7 @@ class Services_oEmbed
         }
 
         if ($this->options[self::OPTION_API] === null) {
-            $this->options[self::OPTION_API] = $this->discover();
+            $this->options[self::OPTION_API] = $this->discover($url);
         } 
     }
 
