@@ -316,9 +316,9 @@ class Services_oEmbed
         foreach ($m[0] as $i => $link) {
             $h = array();
             if (preg_match('/href="([^"]+)"/i', $link, $h)) {
-                $ret[$m[2][$i]] = $h[1];
+                $ret[$m[2][$i]] = htmlspecialchars_decode($h[1]);
             }
-        } 
+        }
 
         return (isset($ret['json']) ? $ret['json'] : array_pop($ret));
     }
