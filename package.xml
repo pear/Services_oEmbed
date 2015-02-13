@@ -11,18 +11,18 @@
   <name>Bill Shupp</name>
   <user>shupp</user>
   <email>shupp@php.net</email>
-  <active>yes</active>
+  <active>no</active>
  </lead>
  <lead>
   <name>Joe Stump</name>
   <user>jstump</user>
   <email>joe@joestump.net</email>
-  <active>yes</active>
+  <active>no</active>
  </lead>
- <date>2011-01-03</date>
+ <date>2015-02-13</date>
  <time>18:00:08</time>
  <version>
-  <release>0.2.0</release>
+  <release>0.2.1</release>
   <api>0.2.0</api>
  </version>
  <stability>
@@ -31,11 +31,8 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-* Fixes E_STRICT warnings, per #18042
-* Removed dependency on PEAR_Exception
-* Removed dependency on HTTP_Request (lingering require_once)
-* Added support for phpunit 3.5
-* Added generatePackage.php for easy package maintenance
+  - Fix #20496: discover() call misses $url parameter
+  - Fix #20497: Encoded entities not decoded during discovery
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -102,6 +99,7 @@
  </dependencies>
  <phprelease />
  <changelog>
+
   <release>
    <date>2008-09-25</date>
    <version>
@@ -116,71 +114,8 @@
    <notes>
 * Initial release
    </notes>
-   <contents>
-    <dir name="/">
-     <dir name="Services">
-      <file name="oEmbed.php" role="php">
-       <tasks:replace from="@package-name@" to="name" type="package-info" />
-       <tasks:replace from="@package-version@" to="version" type="package-info" />
-      </file>
-      <dir name="oEmbed">
-       <file name="Exception.php" role="php">
-        <tasks:replace from="@package-name@" to="name" type="package-info" />
-        <tasks:replace from="@package-version@" to="version" type="package-info" />
-       </file>
-       <file name="Object.php" role="php">
-        <tasks:replace from="@package-name@" to="name" type="package-info" />
-        <tasks:replace from="@package-version@" to="version" type="package-info" />
-       </file>
-       <dir name="Exception">
-        <file name="NoSupport.php" role="php">
-         <tasks:replace from="@package-name@" to="name" type="package-info" />
-         <tasks:replace from="@package-version@" to="version" type="package-info" />
-        </file>
-       </dir> <!-- /Services/oEmbed/Exception -->
-       <dir name="Object">
-        <file name="Common.php" role="php">
-         <tasks:replace from="@package-name@" to="name" type="package-info" />
-         <tasks:replace from="@package-version@" to="version" type="package-info" />
-        </file>
-        <file name="Exception.php" role="php">
-         <tasks:replace from="@package-name@" to="name" type="package-info" />
-         <tasks:replace from="@package-version@" to="version" type="package-info" />
-        </file>
-        <file name="Link.php" role="php">
-         <tasks:replace from="@package-name@" to="name" type="package-info" />
-         <tasks:replace from="@package-version@" to="version" type="package-info" />
-        </file>
-        <file name="Photo.php" role="php">
-         <tasks:replace from="@package-name@" to="name" type="package-info" />
-         <tasks:replace from="@package-version@" to="version" type="package-info" />
-        </file>
-        <file name="Rich.php" role="php">
-         <tasks:replace from="@package-name@" to="name" type="package-info" />
-         <tasks:replace from="@package-version@" to="version" type="package-info" />
-        </file>
-        <file name="Video.php" role="php">
-         <tasks:replace from="@package-name@" to="name" type="package-info" />
-         <tasks:replace from="@package-version@" to="version" type="package-info" />
-        </file>
-       </dir> <!-- /Services/oEmbed/Object -->
-      </dir> <!-- /Services/oEmbed -->
-     </dir> <!-- /Services -->
-     <dir name="tests">
-      <file name="AllTests.php" role="test">
-       <tasks:replace from="@package-name@" to="name" type="package-info" />
-       <tasks:replace from="@package-version@" to="version" type="package-info" />
-      </file>
-      <dir name="Services">
-       <file name="oEmbedTest.php" role="test">
-        <tasks:replace from="@package-name@" to="name" type="package-info" />
-        <tasks:replace from="@package-version@" to="version" type="package-info" />
-       </file>
-      </dir> <!-- /tests/Services -->
-     </dir> <!-- /tests -->
-    </dir> <!-- / -->
-   </contents>
   </release>
+
   <release>
    <date>2008-09-29</date>
    <version>
@@ -199,71 +134,8 @@
 * Allow User-Agent to be set for HTTP requests
 * Allow a timeout to be set for HTTP requests
    </notes>
-   <contents>
-    <dir name="/">
-     <dir name="Services">
-      <file name="oEmbed.php" role="php">
-       <tasks:replace from="@package-name@" to="name" type="package-info" />
-       <tasks:replace from="@package-version@" to="version" type="package-info" />
-      </file>
-      <dir name="oEmbed">
-       <file name="Exception.php" role="php">
-        <tasks:replace from="@package-name@" to="name" type="package-info" />
-        <tasks:replace from="@package-version@" to="version" type="package-info" />
-       </file>
-       <file name="Object.php" role="php">
-        <tasks:replace from="@package-name@" to="name" type="package-info" />
-        <tasks:replace from="@package-version@" to="version" type="package-info" />
-       </file>
-       <dir name="Exception">
-        <file name="NoSupport.php" role="php">
-         <tasks:replace from="@package-name@" to="name" type="package-info" />
-         <tasks:replace from="@package-version@" to="version" type="package-info" />
-        </file>
-       </dir> <!-- /Services/oEmbed/Exception -->
-       <dir name="Object">
-        <file name="Common.php" role="php">
-         <tasks:replace from="@package-name@" to="name" type="package-info" />
-         <tasks:replace from="@package-version@" to="version" type="package-info" />
-        </file>
-        <file name="Exception.php" role="php">
-         <tasks:replace from="@package-name@" to="name" type="package-info" />
-         <tasks:replace from="@package-version@" to="version" type="package-info" />
-        </file>
-        <file name="Link.php" role="php">
-         <tasks:replace from="@package-name@" to="name" type="package-info" />
-         <tasks:replace from="@package-version@" to="version" type="package-info" />
-        </file>
-        <file name="Photo.php" role="php">
-         <tasks:replace from="@package-name@" to="name" type="package-info" />
-         <tasks:replace from="@package-version@" to="version" type="package-info" />
-        </file>
-        <file name="Rich.php" role="php">
-         <tasks:replace from="@package-name@" to="name" type="package-info" />
-         <tasks:replace from="@package-version@" to="version" type="package-info" />
-        </file>
-        <file name="Video.php" role="php">
-         <tasks:replace from="@package-name@" to="name" type="package-info" />
-         <tasks:replace from="@package-version@" to="version" type="package-info" />
-        </file>
-       </dir> <!-- /Services/oEmbed/Object -->
-      </dir> <!-- /Services/oEmbed -->
-     </dir> <!-- /Services -->
-     <dir name="tests">
-      <file name="AllTests.php" role="test">
-       <tasks:replace from="@package-name@" to="name" type="package-info" />
-       <tasks:replace from="@package-version@" to="version" type="package-info" />
-      </file>
-      <dir name="Services">
-       <file name="oEmbedTest.php" role="test">
-        <tasks:replace from="@package-name@" to="name" type="package-info" />
-        <tasks:replace from="@package-version@" to="version" type="package-info" />
-       </file>
-      </dir> <!-- /tests/Services -->
-     </dir> <!-- /tests -->
-    </dir> <!-- / -->
-   </contents>
   </release>
+
   <release>
    <version>
     <release>0.2.0</release>
@@ -281,6 +153,23 @@
 * Removed dependency on HTTP_Request (lingering require_once)
 * Added support for phpunit 3.5
 * Added generatePackage.php for easy package maintenance
+   </notes>
+  </release>
+
+  <release>
+   <version>
+    <release>0.2.1</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2015-02-13</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+    - Fix #20496: discover() call misses $url parameter
+    - Fix #20497: Encoded entities not decoded during discovery
    </notes>
   </release>
  </changelog>
