@@ -1,5 +1,7 @@
 language: php
 
+sudo: false
+
 install: composer install --dev
 
 script:
