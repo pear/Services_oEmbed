@@ -1,0 +1,7 @@
+language: php
+
+install: composer install --dev
+
+script:
+  - composer validate
+  - ./vendor/bin/phpunit
