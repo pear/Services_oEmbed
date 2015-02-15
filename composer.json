@@ -1,5 +1,6 @@
 {
     "name": "pear/services_oembed",
+    "description": "A package for consuming oEmbed",
     "license": "BSD-2-Clause",
     "authors": [
         {
