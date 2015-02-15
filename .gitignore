@@ -1,2 +1,4 @@
 coverage/
 dist/
+composer.phar
+/vendor/

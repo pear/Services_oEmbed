@@ -1,0 +1,24 @@
+{
+    "name": "pear/services_oembed",
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "till",
+            "email": "till@php.net"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://pear.imagineeasy.com"
+        }
+    ],
+    "require": {
+        "pear/validate": "dev-master",
+        "pear/net_url2": "^2.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.5"
+    },
+    "include-path": ["./"]
+}
