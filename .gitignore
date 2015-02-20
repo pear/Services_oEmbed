@@ -1,2 +1,5 @@
 coverage/
 dist/
+composer.lock
+composer.phar
+/vendor/
