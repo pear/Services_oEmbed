@@ -12,14 +12,8 @@
             "email": "till@php.net"
         }
     ],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "http://pear.imagineeasy.com"
-        }
-    ],
     "require": {
-        "pear/validate": "dev-master",
+        "pear/validate": "~0.8.5",
         "pear/net_url2": "^2.1"
     },
     "require-dev": {
